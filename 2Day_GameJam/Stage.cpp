@@ -6,24 +6,34 @@
 
 Stage::Stage()
 {
-	LoadDivGraph("Resource/Images/Stage/color_tile.png", 4, 2, 2, 25, 25, tile_image);
+	LoadDivGraph("Resource/Images/Stage/color_tile.png", 4, 2, 2, 25, 25, tile_image + 1);
 	trans_tile_image = LoadGraph("Resource/Images/Stage/trans_tile.png");
 	**stage = 0;
-	next_tile = GetRand(1);
 	next_color = 0;
 
 
 
-	for (int i = 0; i < 2; i++)
-	{
+	/*for (int i = 0; i < 2; i++)
+	{*/
 		for (int j = 0; j < 7; j++)
 		{
-
-
 			next_tile = GetRand(1);
 			stage[next_tile][j] = GetRand(3);
+
+
+			//奥側のタイルが空白だった場合、空白以外を再度取得する
+			//if (i == 2) {
+			//	if (stage[0][j] == 0) {
+			//		--j;
+			//	}
+			//}
+
+			while (stage[0][j] == stage[1][j])
+			{
+				j--;
+			}
 		}
-	}
+	//}
 }
 
 Stage::~Stage()
@@ -50,7 +60,7 @@ void Stage::Update()
 		for (int i = 0; i < 2; i++)
 		{
 			w = stage[i][0];
-			for (j = 0; j < 6; j++)
+			for (j = 0; j < 7; j++)
 			{
 				stage[i][j] = stage[i][j + 1];
 			
@@ -58,15 +68,11 @@ void Stage::Update()
 			stage[i][j - 1] = w;
 		}
 
-
-		for (int i = 0; i < 2; i++)
-		{
-			for (int j = 0; j < 7; j++)
-			{
-				//next_tile = GetRand(1);
-				//stage[next_tile][j] = GetRand(3);
-			}
+		for (int i = 0; i < 2; i++) {
+			next_tile = GetRand(1);
+			stage[i][6] = GetRand(3);
 		}
+
 	}
 
 }
@@ -74,7 +80,7 @@ void Stage::Update()
 void Stage::Draw()
 {
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
-	DrawBox(0, 450, 1280, 590, 0x000000, TRUE);
+	DrawBox(0, 450, 1280, 720, 0x000000, TRUE);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 	for (int i = 0; i < 2; i++)
@@ -90,10 +96,12 @@ void Stage::Draw()
 			//描画する色の画像
 			int tile_color;
 
-			if (j != 0) {
+			if (stage[i][j] != 0) {
+				//[0:空, 1:奥, 2:手前, 3:両方]
 				tile_color = tile_image[stage[i][j]];
 			}
 			else {
+				//透明
 				tile_color = trans_tile_image;
 			}
 
