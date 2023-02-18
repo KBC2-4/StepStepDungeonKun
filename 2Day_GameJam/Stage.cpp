@@ -12,16 +12,22 @@ Stage::Stage()
 	next_tile = GetRand(1);
 	next_color = 0;
 
-
-
 	for (int i = 0; i < 2; i++)
 	{
 		for (int j = 0; j < 7; j++)
 		{
+			stage[i][j] = GetRand(3);
+			if (i == 1) //配列の[1][?]だったら 
+			{
+				if (stage[i - 1][j] == stage[i][j])//配列の０列、１列を比較、同じだったら
+				{
+					do
+					{
+						stage[i][j] = GetRand(3);
+					} while (stage[i - 1][j] == stage[i][j]); //同じ色にならないように
 
-
-			next_tile = GetRand(1);
-			stage[next_tile][j] = GetRand(3);
+				}
+			}
 		}
 	}
 }
@@ -38,36 +44,32 @@ Stage::~Stage()
 
 void Stage::Update()
 {
+	
+	//タイルを入れ替える
+	int w = 0;
+	int j = 0;
 
-	//Aボタンを押した時
-	if (PAD_INPUT::GetNowKey() == XINPUT_BUTTON_A && (PAD_INPUT::GetPadState() == PAD_STATE::ON)) {
-
-
-		//タイルを入れ替える
-		int w = 0;
-		int j = 0;
-
-		for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 2; i++)
+	{
+		w = stage[i][0];
+		for (j = 0; j < 6; j++)
 		{
-			w = stage[i][0];
-			for (j = 0; j < 6; j++)
-			{
-				stage[i][j] = stage[i][j + 1];
-			
-			}
-			stage[i][j - 1] = w;
+			stage[i][j] = stage[i][j + 1];
+
 		}
+		stage[i][j - 1] = w;
+	}
 
 
-		for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 2; i++)
+	{
+		for (int j = 0; j < 7; j++)
 		{
-			for (int j = 0; j < 7; j++)
-			{
-				//next_tile = GetRand(1);
-				//stage[next_tile][j] = GetRand(3);
-			}
+			//next_tile = GetRand(1);
+			//stage[next_tile][j] = GetRand(3);
 		}
 	}
+
 
 }
 
@@ -76,7 +78,11 @@ void Stage::Draw()
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
 	DrawBox(0, 450, 1280, 590, 0x000000, TRUE);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	DrawFormatString(200, 300, GetColor(255, 0, 0), "%d", stage[1][1]);
+	DrawFormatString(200, 400, GetColor(255, 0, 0), "%d", stage[0][0]);
 
+	DrawFormatString(500, 350, GetColor(255, 0, 0), "%d", stage[0][1]+ stage[1][1]);
+	
 	for (int i = 0; i < 2; i++)
 	{
 		for (int j = 0; j < 7; j++)
@@ -103,4 +109,9 @@ void Stage::Draw()
 	}
 
 
+}
+
+short Stage::Getstage(int a, int b)
+{
+	return stage[a][b];
 }

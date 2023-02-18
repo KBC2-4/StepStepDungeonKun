@@ -6,12 +6,15 @@ Player::Player()
 	player_x = 0;
 	player_y = 0;
 	hp = 3;
-	a_button=false;
-	b_button=false;
-	y_button=false;
-	x_button=false;
+	button = 0;
+	num = 0;
 	player_mistake = false;
-	
+	button_flg = false;
+	a_button = false;
+	b_button = false;
+	y_button = false;
+	x_button = false;
+
 }
 
 Player::~Player()
@@ -24,50 +27,47 @@ Player::~Player()
 //-----------------------
 void Player::Update()
 {
-	//Aボタン押したとき
-	if (PAD_INPUT::GetNowKey() == XINPUT_BUTTON_A && PAD_INPUT::GetPadState() == PAD_STATE::ON)
+
+	if (num >= 2)
 	{
-		a_button = true;
+		Reset();
 	}
-	else //Aボタンが押されていなかったら
+
+	//Aボタン押したとき
+	if (PAD_INPUT::GetNowKey() == XINPUT_BUTTON_A && PAD_INPUT::GetPadState() == PAD_STATE::DOWN && a_button == false)
 	{
-		a_button = false;
+		button += 1;
+		a_button = true;
+		button_flg = true;
 	}
 
 	//Bボタン押したとき
-	if (PAD_INPUT::GetNowKey() == XINPUT_BUTTON_B && PAD_INPUT::GetPadState() == PAD_STATE::ON)
+	if (PAD_INPUT::GetNowKey() == XINPUT_BUTTON_B && PAD_INPUT::GetPadState() == PAD_STATE::DOWN && b_button == false)
 	{
+		button += 2;
 		b_button = true;
-	}
-	else //Bボタンが押されていなかったら
-	{
-		b_button = false;
+		button_flg = true;
 	}
 
 	//Yボタン押したとき
-	if (PAD_INPUT::GetNowKey() == XINPUT_BUTTON_Y && PAD_INPUT::GetPadState() == PAD_STATE::ON)
+	if (PAD_INPUT::GetNowKey() == XINPUT_BUTTON_Y && PAD_INPUT::GetPadState() == PAD_STATE::DOWN && y_button == false)
 	{
+		button += 3;
 		y_button = true;
-	}
-	else //Yボタンが押されていなかったら
-	{
-		y_button = false;
+		button_flg = true;
 	}
 
 	//Xボタン押したとき
-	if (PAD_INPUT::GetNowKey() == XINPUT_BUTTON_X && PAD_INPUT::GetPadState() == PAD_STATE::ON)
+	if (PAD_INPUT::GetNowKey() == XINPUT_BUTTON_X && PAD_INPUT::GetPadState() == PAD_STATE::DOWN && x_button == false)
 	{
+		button += 4;
 		x_button = true;
+		button_flg = true;
 	}
-	else //Xボタンが押されていなかったら
+	if (button_flg == true)
 	{
-		x_button = false;
-	}
-
-	if (player_mistake == true)
-	{
-		hp -= 1;
-		player_mistake = false;
+		++num;
+		button_flg = false;
 	}
 
 }
@@ -77,7 +77,7 @@ void Player::Update()
 //-----------------------
 void Player::Draw()const
 {
-	
+	DrawFormatString(200, 200, GetColor(255, 0, 0), "%d", button);
 }
 
 //-----------------------
@@ -99,28 +99,22 @@ bool Player::CheckHp()
 //各ボタンのフラグを取得する
 //-----------------------
 
-bool Player::GetButton(int botton)
+int  Player::GetButton()
 {
-	switch (botton)
-	{
-	case 1: //Aボタン
-		return a_button;
-		break;
-	case 2: //Bボタン
-		return b_button;
-		break;
-	case 3: //Yボタン
-		return y_button;
-		break;
-	case 4: //Xボタン
-		return x_button;
-		break;
-	default:
-		break;
-	}
+	return button;
 }
 
 void Player::SetMistake(bool a)
 {
 	player_mistake = a;
+}
+
+void Player::Reset()
+{
+	a_button = false;
+	b_button = false;
+	y_button = false;
+	x_button = false;
+	button = 0;
+	num = 0;
 }

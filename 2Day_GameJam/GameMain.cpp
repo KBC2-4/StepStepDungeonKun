@@ -5,9 +5,8 @@ GameMain::GameMain()
 {
 	bgm = 0;
 	background_image = LoadGraph("Resource/Images/Stage/background.jpg");
-
-	player = new Player();
 	stage = new Stage();
+	player = new Player();
 	
 }
 
@@ -19,9 +18,13 @@ GameMain::~GameMain()
 
 AbstractScene* GameMain::Update()
 {
+	
+	if ((stage->Getstage(0, 1) + stage->Getstage(1, 1)) == player->GetButton())
+	{
+		stage->Update();
+		player->Reset();
+	}
 	player->Update();
-	stage->Update();
-
 	return this;
 
 }
@@ -30,7 +33,7 @@ void GameMain::Draw() const
 {
 	DrawGraph(0, 0, background_image, FALSE);
 
-	player->Draw();
 	stage->Draw();
+	player->Draw();
 }
 

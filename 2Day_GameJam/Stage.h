@@ -18,5 +18,6 @@ public:
 	~Stage();
 	void Update();
 	void Draw();
+	short Getstage(int a, int b);
 
 };
