@@ -19,6 +19,7 @@ private:
 	int bgm;
 
 	//各クラスオブジェクト
-
+	Player* player;
+	Stage* stage;
 
 };
