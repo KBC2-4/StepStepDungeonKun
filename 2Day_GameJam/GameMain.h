@@ -1,3 +1,4 @@
+#pragma once
 #include "AbstractScene.h"
 #include "Player.h"
 #include "Stage.h"
@@ -20,4 +21,4 @@ private:
 	//各クラスオブジェクト
 
 
-}
+};
