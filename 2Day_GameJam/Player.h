@@ -7,6 +7,11 @@ private:
 	float player_y; //プレイヤー座標
 	int hp; //使うかわからんけど
 	bool player_mistake; //プレイヤーがミスをしたらtrue
+	bool a_button; //aボタンのフラグ
+	bool b_button; //bボタンのフラグ
+	bool y_button; //yボタンのフラグ
+	bool x_button; //xボタンのフラグ
+
 public:
 
 	Player(); //コンストラクタ
