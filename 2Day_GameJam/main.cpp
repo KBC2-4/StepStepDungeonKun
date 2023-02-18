@@ -1,9 +1,20 @@
 #include "main.h"
+#include "PadInput.h"
+#include "SceneManager.h"
+#include "Title.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 
-	SetMainWindowText("");
+	double dNextTime = GetNowCount();
+
+	SetMainWindowText("2Day_GameJam");
 	ChangeWindowMode(TRUE);
+
+	SetGraphMode(1280, 720, 32);
+
+	SetAlwaysRunFlag(true);		//常にアクティブにする
+
+	SetOutApplicationLogValidFlag(FALSE);   //ログ出力を無効にする
 
 	ChangeFontType(DX_FONTTYPE_ANTIALIASING_4X4);
 
@@ -11,26 +22,51 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	SetDrawScreen(DX_SCREEN_BACK);
 
-	while (ProcessMessage() == 0 && GameState != 99) {
+	SceneManager* sceneMng;
+	try
+	{
+		sceneMng = new SceneManager((AbstractScene*)new Title());
 
-		g_OldKey = g_NowKey;
-		g_NowKey = GetJoypadInputState(DX_INPUT_PAD1);
-		g_KeyFlg = g_NowKey & ~g_OldKey;
+	}
+	catch (const char* err)
+	{
+		FILE* fp = NULL;
 
-		ClearDrawScreen();
+		DATEDATA data;
+
+		GetDateTime(&data);
+		//ファイルオープン
+		fopen_s(&fp, "data/ErrLog/ErrLog.txt", "	a");
+		//エラーデータの書き込み
+		fprintf_s(fp, "%02d年 %02d月 %02d日 %02d時 %02d分 %02d秒 : %sがありません。\n", data.Year, data.Mon, data.Day, data.Hour, data.Min, data.Sec, err);
+
+		return 0;
+	}
+
+	// ゲームループ
+	while ((ProcessMessage() == 0) && (sceneMng->Update() != nullptr)) {
 
 
-		DrawBoxAA(50, 50, 600, 600, 0xFFFFFF, TRUE, 3.0f);
+		ClearDrawScreen();		// 画面の初期化
+		PAD_INPUT::UpdateKey();	//パッドの入力状態の更新
+		sceneMng->Draw();
 
+		ScreenFlip();			// 裏画面の内容を表画面に反映
+		SetWindowVisibleFlag(TRUE);// ウィンドウを表示させる
 
-		ScreenFlip();
-
-
-
+		//フレームレートの設定
+		dNextTime += static_cast<double>(1.0 / 60.0 * 1000.0);
+		if (dNextTime > GetNowCount()) {
+			WaitTimer(static_cast<int>(dNextTime) - GetNowCount());
+		}
+		else { dNextTime = GetNowCount(); }		//補正
 
 
 	}
-	DxLib_End();
 
+	InitFontToHandle();	//全てのフォントデータを削除
+	InitGraph();		//読み込んだ全てのグラフィックデータを削除
+	InitSoundMem();		//読み込んだ全てのサウンドデータを削除
+	DxLib_End();
 	return 0;
 }
