@@ -1,4 +1,5 @@
 #include "Player.h"
+#include"PadInput.h"
 
 Player::Player()
 {
@@ -12,7 +13,11 @@ Player::Player()
 //-----------------------
 void Player::Update() 
 {
-	
+	//Aƒ{ƒ^ƒ“‰Ÿ‚µ‚½‚Æ‚«
+	if (PAD_INPUT::GetNowKey() == XINPUT_BUTTON_A && PAD_INPUT::GetPadState() == PAD_STATE::ON)
+	{
+
+	}
 }
 
 //-----------------------
