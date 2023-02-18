@@ -6,12 +6,17 @@ Player::Player()
 	player_x = 0;
 	player_y = 0;
 	player_mistake = false;
+	hp = 0;
+}
+
+Player::~Player()
+{
 }
 
 //-----------------------
 //•`‰æˆ—ˆÈŠO
 //-----------------------
-void Player::Update() 
+void Player::Update()
 {
 	//Aƒ{ƒ^ƒ“‰Ÿ‚µ‚½‚Æ‚«
 	if (PAD_INPUT::GetNowKey() == XINPUT_BUTTON_A && PAD_INPUT::GetPadState() == PAD_STATE::ON)
