@@ -5,7 +5,7 @@ Player::Player()
 {
 	player_x = 0;
 	player_y = 0;
-	hp = 0;
+	hp = 3;
 	a_button=false;
 	b_button=false;
 	y_button=false;
@@ -16,6 +16,7 @@ Player::Player()
 
 Player::~Player()
 {
+
 }
 
 //-----------------------
@@ -62,6 +63,13 @@ void Player::Update()
 	{
 		x_button = false;
 	}
+
+	if (player_mistake == true)
+	{
+		hp -= 1;
+		player_mistake = false;
+	}
+
 }
 
 //-----------------------
@@ -87,5 +95,30 @@ bool Player::CheckHp()
 	else
 	{
 		return false;
+	}
+}
+
+//-----------------------
+//各ボタンのフラグを取得する
+//-----------------------
+
+bool Player::GetButton(int botton)
+{
+	switch (botton)
+	{
+	case 1: //Aボタン
+		return a_button;
+		break;
+	case 2: //Bボタン
+		return b_button;
+		break;
+	case 3: //Yボタン
+		return y_button;
+		break;
+	case 4: //Xボタン
+		return x_button;
+		break;
+	default:
+		break;
 	}
 }
