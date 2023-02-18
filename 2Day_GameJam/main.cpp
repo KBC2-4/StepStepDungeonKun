@@ -23,6 +23,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	SetDrawScreen(DX_SCREEN_BACK);
 
+	//デフォルトの背景色を変更
+	SetBackgroundColor(255, 0, 255);
+
 	SceneManager* sceneMng;
 	try
 	{
