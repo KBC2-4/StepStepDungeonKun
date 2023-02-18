@@ -18,6 +18,8 @@ Stage::Stage()
 	{
 		for (int j = 0; j < 7; j++)
 		{
+
+
 			next_tile = GetRand(1);
 			stage[next_tile][j] = GetRand(3);
 		}
@@ -37,23 +39,44 @@ Stage::~Stage()
 void Stage::Update()
 {
 
-		//Aボタンを押した時
-		if (PAD_INPUT::GetNowKey() == XINPUT_BUTTON_A && (PAD_INPUT::GetPadState() == PAD_STATE::ON)) {
+	//Aボタンを押した時
+	if (PAD_INPUT::GetNowKey() == XINPUT_BUTTON_A && (PAD_INPUT::GetPadState() == PAD_STATE::ON)) {
 
-			for (int i = 0; i < 2; i++)
+
+		//タイルを入れ替える
+		int w = 0;
+		int j = 0;
+
+		for (int i = 0; i < 2; i++)
+		{
+			w = stage[i][0];
+			for (j = 0; j < 6; j++)
 			{
-				for (int j = 0; j < 7; j++)
-				{
-					next_tile = GetRand(1);
-					stage[next_tile][j] = GetRand(3);
-				}
+				stage[i][j] = stage[i][j + 1];
+			
+			}
+			stage[i][j - 1] = w;
+		}
+
+
+		for (int i = 0; i < 2; i++)
+		{
+			for (int j = 0; j < 7; j++)
+			{
+				//next_tile = GetRand(1);
+				//stage[next_tile][j] = GetRand(3);
 			}
 		}
-		
+	}
+
 }
 
 void Stage::Draw()
 {
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
+	DrawBox(0, 450, 1280, 590, 0x000000, TRUE);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
 	for (int i = 0; i < 2; i++)
 	{
 		for (int j = 0; j < 7; j++)
@@ -63,7 +86,7 @@ void Stage::Draw()
 			int right_x = 200 + j * 200 + (i * -20);
 			int up_y = 450 + i * 140;
 			int down_y = 590 + i * 140;
-			
+
 			//描画する色の画像
 			int tile_color;
 
@@ -79,5 +102,5 @@ void Stage::Draw()
 		}
 	}
 
-	
+
 }
