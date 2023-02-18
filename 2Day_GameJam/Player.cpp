@@ -122,3 +122,8 @@ bool Player::GetButton(int botton)
 		break;
 	}
 }
+
+void Player::SetMistake(bool a)
+{
+	player_mistake = a;
+}
