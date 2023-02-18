@@ -77,10 +77,10 @@ void Player::Update()
 //-----------------------
 void Player::Draw()const
 {
-	if (x_button == true) 
+	/*if (x_button == true) 
 	{
 		DrawLine(100, 90, 600, 400, GetColor(255,0,0));
-	}
+	}*/
 }
 
 //-----------------------
