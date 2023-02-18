@@ -17,7 +17,7 @@ private:
 	int background_image;
 
 	int bgm;
-
+	
 	//各クラスオブジェクト
 	Player* player;
 	Stage* stage;
