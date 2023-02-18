@@ -1,15 +1,18 @@
 #include "Title.h"
 #include "DxLib.h"
 #include "PadInput.h"
+#include"GameMain.h"
 
 //-----------------------------------
 // コンストラクタ
 //-----------------------------------
 Title::Title()
 {
-	title_font = CreateFontToHandle("UD デジタル 教科書体 N-B", 120, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
+	background_image = LoadGraph("images/background_images2.png");
 
-	background_image = 0;
+	title_font = CreateFontToHandle("UD デジタル 教科書体 N-B", 120, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
+	text_font = CreateFontToHandle("UD デジタル 教科書体 N-B", 30, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
+	
 
 	bgm = 0;
 	select_se = 0;
@@ -43,6 +46,10 @@ AbstractScene* Title::Update()
 		input_margin++;
 	}
 
+	if (PAD_INPUT_B) {
+		/*return new GameMain();*/
+	}
+
 	return this;
 }
 
@@ -51,7 +58,9 @@ AbstractScene* Title::Update()
 //-----------------------------------
 void Title::Draw()const
 {
+	DrawGraph(0, 0, background_image, FALSE);
 	DrawStringToHandle(GetDrawCenterX("タイトル", title_font), 100, "タイトル", 0x56F590, title_font, 0xFFFFFF);
+	DrawStringToHandle(GetDrawCenterX("ーBボタンを押しくださいー", text_font), 500, "ーBボタンを押しくださいー", 0xFFFFFF, text_font, 0xFF0000);
 }
 
 //-----------------------------------

@@ -34,6 +34,8 @@ private:
     //操作間隔時間
     int input_margin;
 
+    //テキスト用フォントハンドル
+    int text_font;
 
 public:
     //コンストラクタ
