@@ -6,34 +6,31 @@
 
 Stage::Stage()
 {
-	LoadDivGraph("Resource/Images/Stage/color_tile.png", 4, 2, 2, 25, 25, tile_image + 1);
+	LoadDivGraph("Resource/Images/Stage/color_tile.png", 4, 2, 2, 25, 25, tile_image);
 	trans_tile_image = LoadGraph("Resource/Images/Stage/trans_tile.png");
 	**stage = 0;
 	next_color = 0;
 
 
 
-	/*for (int i = 0; i < 2; i++)
-	{*/
+	// ステージをランダムに生成する
+	for (int i = 0; i < 2; i++)
+	{
 		for (int j = 0; j < 7; j++)
 		{
 			next_tile = GetRand(1);
 			stage[next_tile][j] = GetRand(3);
-
-
-			//奥側のタイルが空白だった場合、空白以外を再度取得する
-			//if (i == 2) {
-			//	if (stage[0][j] == 0) {
-			//		--j;
-			//	}
-			//}
-
-			while (stage[0][j] == stage[1][j])
-			{
-				j--;
-			}
 		}
-	//}
+	}
+
+	// 上下のタイルが同じにならないように調整する
+	for (int j = 0; j < 7; j++)
+	{
+		while (stage[0][j] == stage[1][j])
+		{
+			stage[1][j] = GetRand(3);
+		}
+	}
 }
 
 Stage::~Stage()
@@ -63,15 +60,23 @@ void Stage::Update()
 			for (j = 0; j < 7; j++)
 			{
 				stage[i][j] = stage[i][j + 1];
-			
+
 			}
 			stage[i][j - 1] = w;
 		}
 
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 1; i++) {
 			next_tile = GetRand(1);
-			stage[i][6] = GetRand(3);
+			stage[next_tile][6] = GetRand(3);
 		}
+
+
+		// 上下のタイルが同じにならないように調整する
+		while (stage[0][6] == stage[1][6])
+		{
+			stage[1][6] = GetRand(3);
+		}
+
 
 	}
 
