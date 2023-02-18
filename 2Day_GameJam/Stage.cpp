@@ -18,10 +18,9 @@ void Stage::Update()
 {
 	next_tile = GetRand(1);
 	next_color = GetRand(3);
-	//DrawModiGraph(40,500,120,500,100,540,20,540,)
 }
 
 void Stage::Draw()
 {
-
+	DrawModiGraph(40, 500, 120, 500, 100, 540, 20, 540, tile_image[next_color],TRUE);
 }
