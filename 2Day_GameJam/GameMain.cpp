@@ -2,7 +2,7 @@
 #include "DxLib.h"
 #include "Result.h"
 
-#define ANSWER_TIME		180
+#define ANSWER_TIME		240
 
 GameMain::GameMain()
 {
@@ -24,7 +24,8 @@ GameMain::GameMain()
 	background_image = LoadGraph("Resource/Images/Stage/background.jpg");
 
 	answer_count_font = CreateFontToHandle("メイリオ", 100, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
-	start_count_font = CreateFontToHandle("メイリオ", 300, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+	start_count_font = CreateFontToHandle("メイリオ", 300, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8,-1,5);
+	guid_font = CreateFontToHandle("メイリオ", 23, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
 
 	player = new Player();
 	stage = new Stage();
@@ -67,7 +68,7 @@ AbstractScene* GameMain::Update()
 	else if (start_time <= 60) {
 
 		//1タイル当たりの制限時間を減算
-		if (answer_time > 0) {
+		if (answer_time > 60) {
 			answer_time--;
 		}
 
@@ -194,5 +195,47 @@ void GameMain::Draw() const
 	for (int i = 0; i < life; i++) {
 		DrawCircle(50 + i * 50, 30, 10, 0xFFFFF, TRUE);
 	}
+
+	//ガイド描画
+
+	int x = 200;
+	int y = 400;
+	
+	DrawCircleAA(x, y, 15, 20, 0xFFCB33, 1);
+
+	int button = up_tile + down_tile;
+	char button_str[2];
+	int button_color = 0xFFFFFF;
+
+	switch (static_cast<TILES>(button))
+	{
+	case TILES::NONE:
+		sprintfDx(button_str, "");
+		button_color = 0xFFFFFF;
+		break;
+	case TILES::RED:
+		sprintfDx(button_str, "B");
+		button_color = 0xFF7C00;
+		
+		break;
+	case TILES::GREEN:
+		sprintfDx(button_str, "A");
+		button_color = 0x00FFF0;
+		
+		break;
+	case TILES::BLUE:
+		sprintfDx(button_str, "X");
+		button_color = 0x3333E7;
+		break;
+	case TILES::YELLOW:
+		sprintfDx(button_str, "Y");
+		button_color = 0xffff00;
+		break;
+	default:
+		sprintfDx(button_str, "");
+		break;
+	}
+
+	DrawStringToHandle(x - 7, y - 12, button_str, button_color, guid_font);
 }
 

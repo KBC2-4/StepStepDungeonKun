@@ -3,6 +3,14 @@
 #include "Player.h"
 #include "Stage.h"
 
+enum class TILES {
+	NONE,
+	RED,
+	GREEN,
+	BLUE,
+	YELLOW
+};
+
 
 class GameMain : public AbstractScene
 {
@@ -12,7 +20,6 @@ public:
 	AbstractScene* Update() override;
 	void Draw() const override;
 
-
 private:
 
 	//スタート時のカウントダウン用フォントハンドル
@@ -20,6 +27,8 @@ private:
 
 	//1タイル当たりの制限時間用フォントハンドル
 	int answer_count_font;
+
+	int guid_font;
 
 	//開始までの時間
 	int start_time;
