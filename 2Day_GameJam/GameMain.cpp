@@ -57,14 +57,12 @@ void GameMain::Draw() const
 
 	//HUD
 
-	//開始時のカウントダウン	描画
-	if (start_time > 60) {
-		DrawFormatString2ToHandle(GetDrawCenterX("0", start_count_font), 200, 0x000000, 0xFFFFFF, start_count_font, "%d", start_time / 60);
-	}
+	////開始時のカウントダウン	描画
+	//if (start_time > 60) {
+	//	DrawFormatStringToHandle(GetDrawCenterX("0", start_count_font), 200, 0x000000, 0xFFFFFF, start_count_font, "%d", start_time / 60);
+	//}
 
-	//1タイル当たりの制限時間	描画
-	if (answer_time > 60) { DrawFormatString2ToHandle(50, 80, 0x000000, 0xFFFFFF, answer_count_font, "%d", (answer_time / 60)); }
-	DrawFormatString2ToHandle(1050, 80, 0x000000, 0xFFFFFF, answer_count_font, "%2dm", distance);
+	
 
 	//ライフ		描画
 	int life = player->GetLife();
