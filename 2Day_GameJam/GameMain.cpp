@@ -7,7 +7,7 @@ GameMain::GameMain()
 	background_image = LoadGraph("Resource/Images/Stage/background.jpg");
 	stage = new Stage();
 	player = new Player();
-	
+
 }
 
 GameMain::~GameMain()
@@ -18,14 +18,31 @@ GameMain::~GameMain()
 
 AbstractScene* GameMain::Update()
 {
-	
-	if ((stage->Getstage(0, 1) + stage->Getstage(1, 1)) == player->GetButton())
-	{
-		stage->Update();
-		player->Reset();
-	}
 	player->Update();
-	return this;
+
+	if (player->Getnum() == 2)
+	{
+		if ((stage->Getstage(0, 1) + stage->Getstage(1, 1)) == player->GetButton())
+		{
+			stage->Update();
+			player->Reset();
+			player->SetImagesNum(1);
+		}
+		else
+		{
+			player->SetMistake(true);
+			player->Reset();
+		}
+
+	}
+	if (player->CheckHp() == false)
+	{
+		return this;
+	}
+	else
+	{
+		//return
+	}
 
 }
 

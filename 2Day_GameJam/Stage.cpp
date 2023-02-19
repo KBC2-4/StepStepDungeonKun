@@ -79,7 +79,7 @@ void Stage::Draw()
 	DrawBox(0, 450, 1280, 590, 0x000000, TRUE);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	DrawFormatString(200, 300, GetColor(255, 0, 0), "%d", stage[1][1]);
-	DrawFormatString(200, 400, GetColor(255, 0, 0), "%d", stage[0][0]);
+	DrawFormatString(200, 400, GetColor(255, 0, 0), "%d", stage[0][1]);
 
 	DrawFormatString(500, 350, GetColor(255, 0, 0), "%d", stage[0][1]+ stage[1][1]);
 	
@@ -96,8 +96,10 @@ void Stage::Draw()
 			//ï`âÊÇ∑ÇÈêFÇÃâÊëú
 			int tile_color;
 
-			if (j != 0) {
+			if (j != 0) 
+			{
 				tile_color = tile_image[stage[i][j]];
+				/*tile_color = tile_image[1];*/
 			}
 			else {
 				tile_color = trans_tile_image;
