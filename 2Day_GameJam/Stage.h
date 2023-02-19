@@ -2,9 +2,9 @@
 class Stage
 {
 private:
-	int tile_image[4];
+	int tile_image[5];
 
-	short stage[2][5];
+	short stage[2][7];
 
 	//ŽŸ‚Ìƒ^ƒCƒ‹[0:‹ó, 1:‰œ, 2:Žè‘O, 3:—¼•û]
 	short next_tile;

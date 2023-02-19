@@ -24,6 +24,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	SetDrawScreen(DX_SCREEN_BACK);
 
+	//デフォルトの背景色を変更
+	SetBackgroundColor(255, 0, 255);
+
 	SceneManager* sceneMng;
 	try
 	{
@@ -48,6 +51,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	// ゲームループ
 	while ((ProcessMessage() == 0) && (sceneMng->Update() != nullptr)) {
 
+		//強制終了
+		if (PAD_INPUT::GetNowKey() == XINPUT_BUTTON_BACK)
+		{
+			break;
+		}
 
 		ClearDrawScreen();		// 画面の初期化
 		PAD_INPUT::UpdateKey();	//パッドの入力状態の更新
