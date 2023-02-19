@@ -1,6 +1,7 @@
 #include "Result.h"
 #include "PadInput.h"
 #include"Title.h"
+#include"End.h"
 
 Result::Result() {
 	background_image = LoadGraph("Resource/images/Title&Result/background_images2.png");
@@ -44,7 +45,7 @@ AbstractScene* Result::Update() {
 			return new Title();
 		}
 		if (RESULT_MENU::END == MenuNo) {
-
+			return new End();
 		}
 	}
 
