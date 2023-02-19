@@ -51,7 +51,14 @@ AbstractScene* GameMain::Update()
 
 	short tile_count = 0;
 	for (int i = 0; i < 2; i++) {
-		if (up_tile == 0 || down_tile == 0) { tile_count++; }
+		if (up_tile > 0 && down_tile > 0)
+		{
+			tile_count = 2;
+		}
+		else
+		{
+			tile_count = 1;
+		}
 	}
 
 	if (player->Getnum() == tile_count)
@@ -119,7 +126,10 @@ void GameMain::Draw() const
 
 	stage->Draw();
 	player->Draw();
+	short up_tile = stage->GetNextTile().up;
+	short down_tile = stage->GetNextTile().down;
 
+	DrawFormatString(600, 300, GetColor(255, 255, 50), "%d", up_tile + down_tile);
 
 	//HUD
 
