@@ -1,5 +1,7 @@
 #include "Player.h"
 #include"PadInput.h"
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 Player::Player()
 {
@@ -15,7 +17,7 @@ Player::Player()
 	b_button = false;
 	y_button = false;
 	x_button = false;
-	/*LoadDivGraph("Resource/Images/Stage/color_tile.png", 4, 2, 2, 25, 25, player_images);*/
+	LoadDivGraph("Resource/Images/Player/human.png", 4, 4, 1, 30, 60, player_images);
 }
 
 Player::~Player()
@@ -89,7 +91,7 @@ void Player::Draw()const
 	DrawFormatString(500, 500, GetColor(255, 255, 255), "%d", num);
 	DrawFormatString(700, 300, GetColor(255, 255, 0), "%d",hp );
 
-	//DrawGraph(100, 500, player_images[images_num], false);
+	DrawRotaGraph(100 , 400, 1.0, M_PI / 180 * 0, player_images[images_num], TRUE);
 
 }
 void Player::Reset()
