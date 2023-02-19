@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AbstractScene.cpp" />
+    <ClCompile Include="End.cpp" />
     <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="main.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\PG\dxlib</AdditionalIncludeDirectories>
@@ -169,6 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
+    <ClInclude Include="End.h" />
     <ClInclude Include="GameMain.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="PadInput.h" />
