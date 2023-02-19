@@ -2,6 +2,7 @@
 #include "DxLib.h"
 #include "PadInput.h"
 #include"GameMain.h"
+#include"End.h"
 
 //-----------------------------------
 // コンストラクタ
@@ -75,7 +76,7 @@ AbstractScene* Title::Update()
 			
 		}
 		if (TITLE_MENU::END == MenuNo) {
-
+			return new End();
 		}
 	}
 
@@ -94,7 +95,7 @@ void Title::Draw()const
 	DrawStringToHandle(GetDrawCenterX("PLAY", text_font), 380, "PLAY", 0xFFFFFF, text_font, 0xFF0000);
 	DrawStringToHandle(GetDrawCenterX("PLAY", text_font), 460, "RANKING", 0xFFFFFF, text_font, 0xFF0000);
 	DrawStringToHandle(GetDrawCenterX("PLAY", text_font), 540, "END", 0xFFFFFF, text_font, 0xFF0000);
-	DrawGraph(GetDrawCenterX("PLAY", text_font) - 80, 380 + select * 80, select_image, FALSE);
+	DrawGraph(GetDrawCenterX("PLAY", text_font) - 80, 380 + select * 80, select_image, TRUE);
 	DrawFormatString(0, 0, 0xFFFFFFF, "%d",select);
 }
 

@@ -6,7 +6,6 @@ private:
 	float player_x; //プレイヤー座標
 	float player_y; //プレイヤー座標
 	int hp; //使うかわからんけど
-	int time;
 	int button; //数字で管理します、
 	int num;
 	int player_images[4];
