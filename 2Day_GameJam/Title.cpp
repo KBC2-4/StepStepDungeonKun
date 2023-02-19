@@ -8,8 +8,8 @@
 //-----------------------------------
 Title::Title()
 {
-	background_image = LoadGraph("images/background_images2.png");
-	select_image = LoadGraph("images/select_images.png");
+	background_image = LoadGraph("Resource/images/Title&Result/background_images2.png");
+	select_image = LoadGraph("Resource/images/Title&Result/select_images.png");
 
 	title_font = CreateFontToHandle("UD デジタル 教科書体 N-B", 90, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
 	text_font = CreateFontToHandle("UD デジタル 教科書体 N-B", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);

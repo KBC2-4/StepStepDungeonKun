@@ -47,8 +47,8 @@ void GameMain::Draw() const
 	player->Draw();
 	stage->Draw();
 
-	if (start_time > 60) {
-		DrawFormatString2ToHandle(GetDrawCenterX("0", count_font), 200, 0x000000, 0xFFFFFF, count_font, "%d", start_time / 60);
-	}
+	//if (start_time > 60) {
+	//	DrawFormatStringToHandle(GetDrawCenterX("0", count_font), 200, 0x000000, 0xFFFFFF, count_font, "%d", start_time / 60);
+	//}
 }
 
