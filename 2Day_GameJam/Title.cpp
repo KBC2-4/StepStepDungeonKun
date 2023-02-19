@@ -2,6 +2,7 @@
 #include "DxLib.h"
 #include "PadInput.h"
 #include"GameMain.h"
+#include"End.h"
 
 //-----------------------------------
 // コンストラクタ
@@ -75,7 +76,7 @@ AbstractScene* Title::Update()
 			
 		}
 		if (TITLE_MENU::END == MenuNo) {
-
+			return new End();
 		}
 	}
 
