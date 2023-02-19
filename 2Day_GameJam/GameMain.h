@@ -45,6 +45,7 @@ private:
 	int correct_se;
 	int wrong_se;
 	int background_music;
+	int tile_se[4];
 	
 	//各クラスオブジェクト
 	Player* player;

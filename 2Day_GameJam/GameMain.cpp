@@ -14,6 +14,13 @@ GameMain::GameMain()
 	sprintfDx(buf, "Resource/Sounds/BGM/GameMain%d.mp3", bgm_rand);
 	background_music = LoadSoundMem(buf);
 
+
+	char dis_se_buf[32];
+	for (int i = 0; i < 4; i++) {
+		sprintfDx(dis_se_buf, "Resource/Sounds/SE/tile%d.mp3", i + 1);
+		tile_se[i] = LoadSoundMem(dis_se_buf);
+	}
+
 	background_image = LoadGraph("Resource/Images/Stage/background.jpg");
 
 	answer_count_font = CreateFontToHandle("メイリオ", 100, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
@@ -30,6 +37,8 @@ GameMain::GameMain()
 	answer = Answer::unanswered;
 
 	PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, TRUE);
+
+	ChangeVolumeSoundMem(180, background_music);
 }
 
 GameMain::~GameMain()
@@ -44,6 +53,10 @@ GameMain::~GameMain()
 	DeleteSoundMem(correct_se);
 	StopSoundMem(background_music);
 	DeleteSoundMem(background_music);
+
+	for (int i = 0; i < 4; i++) {
+		DeleteSoundMem(DeleteSoundMem(tile_se[i]));
+	}
 }
 
 AbstractScene* GameMain::Update()
@@ -59,81 +72,88 @@ AbstractScene* GameMain::Update()
 		}
 
 		//開始した後の処理
-	player->Update();
-	stage->Update();
+		player->Update();
+		stage->Update();
 
 
-	short up_tile = stage->GetNextTile().up;
-	short down_tile = stage->GetNextTile().down;
+		short up_tile = stage->GetNextTile().up;
+		short down_tile = stage->GetNextTile().down;
 
-	short tile_count = 0;
-	for (int i = 0; i < 2; i++) {
-		if (up_tile > 0 && down_tile > 0)
-		{
-			tile_count = 2;
-		}
-		else
-		{
-			tile_count = 1;
-		}
-	}
-
-	if (player->Getnum() == tile_count)
-	{
-		if ((up_tile + down_tile) == player->GetButton())
-		{
-			player->Reset();
-			player->SetImagesNum(1);
-			stage->CreateStage();
-
-			answer = Answer::correct;
-			PlaySoundMem(correct_se, DX_PLAYTYPE_BACK, TRUE);
-		}
-		else
-		{
-			player->SetMistake(true);
-			player->Reset();
-
-			answer = Answer::wrong;
-			PlaySoundMem(wrong_se, DX_PLAYTYPE_BACK, TRUE);
+		short tile_count = 0;
+		for (int i = 0; i < 2; i++) {
+			if (up_tile > 0 && down_tile > 0)
+			{
+				tile_count = 2;
+			}
+			else
+			{
+				tile_count = 1;
+			}
 		}
 
-	}
+		if (player->Getnum() == tile_count)
+		{
+			if ((up_tile + down_tile) == player->GetButton())
+			{
+				player->Reset();
+				player->SetImagesNum(1);
+				stage->CreateStage();
+
+				answer = Answer::correct;
+
+				if(up_tile + down_tile < 4 && up_tile + down_tile >= 0){
+					PlaySoundMem(tile_se[up_tile + down_tile - 1], DX_PLAYTYPE_BACK, TRUE);
+				}else{ PlaySoundMem(tile_se[0], DX_PLAYTYPE_BACK, TRUE); }
+				printfDx("%d\n", up_tile + down_tile);
 
 
-	if (answer != Answer::unanswered) {
-		answer_time = ANSWER_TIME;
+				distance++;
+			}
+			else
+			{
+				player->SetMistake(true);
+				player->Reset();
 
-		answer = Answer::unanswered;
-	}
+				answer = Answer::wrong;
+				PlaySoundMem(wrong_se, DX_PLAYTYPE_BACK, TRUE);
+			}
+
+		}
+
+
+		if (answer != Answer::unanswered) {
+			answer_time = ANSWER_TIME;
+
+			answer = Answer::unanswered;
+		}
 
 		/*	short is_a_button = player->GetButton(1);
 			short is_b_button = player->GetButton(2);
 			short is_y_button = player->GetButton(3);
 			short is_x_button = player->GetButton(4);*/
 
-		//for (int i = 1; i < 5; i++) {
+			//for (int i = 1; i < 5; i++) {
 
-		//	short is_button = 0;
-		//	short is_buttonw = FALSE;
-		//	printfDx("%d", is_button);
+			//	short is_button = 0;
+			//	short is_buttonw = FALSE;
+			//	printfDx("%d", is_button);
 
-		//	if (is_buttonw == TRUE) {
-		//		is_button = i;
-		//	}
+			//	if (is_buttonw == TRUE) {
+			//		is_button = i;
+			//	}
 
 
-		//	if (up_tile == is_button || down_tile == is_button) {
+			//	if (up_tile == is_button || down_tile == is_button) {
 
-		//		stage->CreateStage();
-		//		answer_time = 0;
-		//	}
-		//	else {
-		//		player->SetMistake(true);
+			//		stage->CreateStage();
+			//		answer_time = 0;
+			//	}
+			//	else {
+			//		player->SetMistake(true);
 
-		//		answer_time = 0;
-		//	}
-		//}
+			//		answer_time = 0;
+			//	}
+			//}
 
 
 	}
