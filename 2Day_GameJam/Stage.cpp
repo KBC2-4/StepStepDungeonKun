@@ -86,7 +86,7 @@ void Stage::InitStage()
 	}
 
 	// ã‰º‚Ìƒ^ƒCƒ‹‚ª“¯‚¶‚É‚È‚ç‚È‚¢‚æ‚¤‚É’²®‚·‚é
-	for (int j = 1; j < 7; j++)
+	for (int j = 0; j < 7; j++)
 	{
 		while (stage[0][j] == stage[1][j])
 		{
