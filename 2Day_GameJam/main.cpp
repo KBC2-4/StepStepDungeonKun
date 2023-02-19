@@ -3,6 +3,7 @@
 #include "SceneManager.h"
 #include "Title.h"
 #include "GameMain.h"
+#include"Result.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 
@@ -29,7 +30,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	SceneManager* sceneMng;
 	try
 	{
-		sceneMng = new SceneManager((AbstractScene*)new GameMain());
+		sceneMng = new SceneManager((AbstractScene*)new Result());
 
 	}
 	catch (const char* err)

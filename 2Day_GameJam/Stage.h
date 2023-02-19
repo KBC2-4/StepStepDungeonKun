@@ -2,8 +2,7 @@
 class Stage
 {
 private:
-	int tile_image[4];
-	int trans_tile_image;
+	int tile_image[5];
 
 	short stage[2][7];
 
@@ -18,5 +17,8 @@ public:
 	~Stage();
 	void Update();
 	void Draw();
-
+	//ステージを初期化
+	void InitStage();
+	//一番右端のタイルを作成
+	void CreateStage();
 };
