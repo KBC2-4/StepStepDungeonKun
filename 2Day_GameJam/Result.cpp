@@ -24,8 +24,6 @@ Result::~Result() {
 }
 
 AbstractScene* Result::Update() {
-	flash_number++;
-	if (flash_number == 150)flash_number = 0;
 
 	if (input_margin < 30)
 	{
@@ -62,7 +60,6 @@ void Result::Draw() const{
 	DrawStringToHandle(GetDrawCenterX("TITLE", text_font), 380, "TITLE", 0xFFFFFF, text_font, 0xFF0000);
 	DrawStringToHandle(GetDrawCenterX("TITLE", text_font), 460, "END", 0xFFFFFF, text_font, 0xFF0000);
 	DrawGraph(GetDrawCenterX("TITLE", text_font) - 80, 380 + select * 80, select_image, TRUE);
-	DrawFormatString(0, 0, 0xFFFFFFF, "%d", select);
 }
 
 //-----------------------------------

@@ -63,23 +63,20 @@ AbstractScene* Title::Update()
 	}
 	//メニューカーソル移動処理
 	if (PAD_INPUT::GetNowKey() == XINPUT_BUTTON_DPAD_DOWN && PAD_INPUT::GetPadState() == PAD_STATE::ON) {
-		if (++select > 2)select = 0;
+		if (++select > 1)select = 0;
 	}
 	if (PAD_INPUT::GetNowKey() == XINPUT_BUTTON_DPAD_UP && PAD_INPUT::GetPadState() == PAD_STATE::ON) {
-		if (--select < 0)select = 2;
+		if (--select < 0)select = 1;
 	}
 	if (select == 0)MenuNo = TITLE_MENU::PLAY;
-	if (select == 1)MenuNo = TITLE_MENU::RANKING;
-	if (select == 2)MenuNo = TITLE_MENU::END;
+	if (select == 1)MenuNo = TITLE_MENU::END;
+	
 
 	//カーソル決定ボタン
 	if (PAD_INPUT::GetNowKey() == XINPUT_BUTTON_A && PAD_INPUT::GetPadState() == PAD_STATE::ON && input_margin >= 30) {
 		PlaySoundMem(select_se, DX_PLAYTYPE_BACK, TRUE);
 		if (TITLE_MENU::PLAY == MenuNo) {
 			return new GameMain();
-		}
-		if (TITLE_MENU::RANKING == MenuNo) {
-			
 		}
 		if (TITLE_MENU::END == MenuNo) {
 			return new End();
@@ -99,10 +96,8 @@ void Title::Draw()const
 	DrawGraph(0, 0, background_image, FALSE);
 	DrawStringToHandle(GetDrawCenterX("踏め踏めダンジョン君!！", title_font), 100, "踏め踏めダンジョン君!！", 0x56F590, title_font, 0xFFFFFF);
 	DrawStringToHandle(GetDrawCenterX("PLAY", text_font), 380, "PLAY", 0xFFFFFF, text_font, 0xFF0000);
-	DrawStringToHandle(GetDrawCenterX("PLAY", text_font), 460, "RANKING", 0xFFFFFF, text_font, 0xFF0000);
-	DrawStringToHandle(GetDrawCenterX("PLAY", text_font), 540, "END", 0xFFFFFF, text_font, 0xFF0000);
+	DrawStringToHandle(GetDrawCenterX("PLAY", text_font), 460, "END", 0xFFFFFF, text_font, 0xFF0000);
 	DrawGraph(GetDrawCenterX("PLAY", text_font) - 80, 380 + select * 80, select_image, TRUE);
-	DrawFormatString(0, 0, 0xFFFFFFF, "%d",select);
 }
 
 //-----------------------------------
