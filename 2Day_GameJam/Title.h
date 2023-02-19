@@ -12,8 +12,7 @@ private:
     enum class TITLE_MENU
     {
         PLAY,
-        OPTION,
-        HELP,
+        RANKING,
         END
     };
 
@@ -34,8 +33,19 @@ private:
     //操作間隔時間
     int input_margin;
 
+    //テキスト用フォントハンドル
+    int text_font;
+
+    //選択用変数
+    int select;
+
+    //選択用ハンドル
+    int select_image;
+
+    TITLE_MENU MenuNo;
 
 public:
+
     //コンストラクタ
     Title();
 
