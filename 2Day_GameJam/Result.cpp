@@ -3,7 +3,7 @@
 #include"Title.h"
 #include"End.h"
 
-Result::Result() {
+Result::Result(short score) {
 	background_image = LoadGraph("Resource/images/Title&Result/background_images2.png");
 	select_image = LoadGraph("Resource/images/Title&Result/select_images.png");
 	background_music = LoadSoundMem("Resource/Sounds/BGM/ƒŠƒUƒ‹ƒg.mp3");
@@ -12,7 +12,9 @@ Result::Result() {
 
 	flash_number = 0;
 	select = 0;
+	this->score = score;
 	input_margin = 0;
+	
 
 	PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, TRUE);
 }
@@ -60,6 +62,8 @@ void Result::Draw() const{
 	DrawStringToHandle(GetDrawCenterX("TITLE", text_font), 380, "TITLE", 0xFFFFFF, text_font, 0xFF0000);
 	DrawStringToHandle(GetDrawCenterX("TITLE", text_font), 460, "END", 0xFFFFFF, text_font, 0xFF0000);
 	DrawGraph(GetDrawCenterX("TITLE", text_font) - 80, 380 + select * 80, select_image, TRUE);
+
+	DrawFormatStringToHandle(570, 270, 0xFFFFFF, text_font, "%2dm",score);
 }
 
 //-----------------------------------

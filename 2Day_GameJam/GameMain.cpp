@@ -163,7 +163,7 @@ AbstractScene* GameMain::Update()
 
 
 	//プレイヤーのライフがなくなった時
-	if (player->GetLife() <= 0) { return new Result(); }
+	if (player->GetLife() <= 0) { return new Result(distance); }
 
 	return this;
 }

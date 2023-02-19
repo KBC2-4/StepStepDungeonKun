@@ -34,8 +34,10 @@ private:
 
 	RESULT_MENU MenuNo;
 
+	short score;
+
 public:
-	Result();
+	Result(short score = 0);
 	~Result();
 
 	AbstractScene* Update() override;
