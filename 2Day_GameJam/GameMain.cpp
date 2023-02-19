@@ -6,7 +6,10 @@
 
 GameMain::GameMain()
 {
-	bgm = 0;
+	wrong_se = LoadSoundMem("Resource/Sounds/wrong.mp3");
+	correct_se = LoadSoundMem("Resource/Sounds/correct.mp3");
+	background_music = LoadSoundMem("Resource/Sounds/bgm.mp3");
+
 	background_image = LoadGraph("Resource/Images/Stage/background.jpg");
 
 	answer_count_font = CreateFontToHandle("ƒƒCƒŠƒI", 100, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
@@ -16,8 +19,13 @@ GameMain::GameMain()
 	stage = new Stage();
 
 	start_time = 240;
+	distance = 0;
 
 	answer_time = ANSWER_TIME;
+
+	answer = Answer::unanswered;
+
+	PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, TRUE);
 }
 
 GameMain::~GameMain()
@@ -27,6 +35,11 @@ GameMain::~GameMain()
 
 	DeleteFontToHandle(start_count_font);
 	DeleteFontToHandle(answer_count_font);
+
+	DeleteSoundMem(wrong_se);
+	DeleteSoundMem(correct_se);
+	StopSoundMem(background_music);
+	DeleteSoundMem(background_music);
 }
 
 AbstractScene* GameMain::Update()
@@ -62,16 +75,25 @@ AbstractScene* GameMain::Update()
 			player->SetImagesNum(1);
 			stage->CreateStage();
 
-			answer_time = ANSWER_TIME;
+			answer = Answer::correct;
+			PlaySoundMem(correct_se, DX_PLAYTYPE_BACK, TRUE);
 		}
 		else
 		{
 			player->SetMistake(true);
 			player->Reset();
 
-			answer_time = ANSWER_TIME;
+			answer = Answer::wrong;
+			PlaySoundMem(wrong_se, DX_PLAYTYPE_BACK, TRUE);
 		}
 
+	}
+
+
+	if (answer != Answer::unanswered) {
+		answer_time = ANSWER_TIME;
+
+		answer = Answer::unanswered;
 	}
 
 		/*	short is_a_button = player->GetButton(1);
