@@ -94,6 +94,7 @@ void Stage::InitStage()
 		}
 	}
 
+
 }
 
 void Stage::CreateStage()
@@ -102,6 +103,8 @@ void Stage::CreateStage()
 	int w = 0;
 	int j = 0;
 
+	DrawFormatString(500, 350, GetColor(255, 0, 0), "%d", stage[0][1]+ stage[1][1]);
+	
 	for (int i = 0; i < 2; i++)
 	{
 		w = stage[i][0];
