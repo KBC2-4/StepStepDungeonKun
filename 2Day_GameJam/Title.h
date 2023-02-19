@@ -12,7 +12,6 @@ private:
     enum class TITLE_MENU
     {
         PLAY,
-        RANKING,
         END
     };
 
