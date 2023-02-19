@@ -56,7 +56,6 @@ void Stage::Draw()
 			tile_color = tile_image[stage[i][j]];
 			
 
-
 			DrawModiGraph(left_x, up_y, right_x, up_y, right_x - BOX_ANGLE, down_y, left_x - BOX_ANGLE, down_y, tile_color, TRUE);
 		}
 	}

@@ -102,36 +102,6 @@ AbstractScene* GameMain::Update()
 
 		answer = Answer::unanswered;
 	}
-
-		/*	short is_a_button = player->GetButton(1);
-			short is_b_button = player->GetButton(2);
-			short is_y_button = player->GetButton(3);
-			short is_x_button = player->GetButton(4);*/
-
-		//for (int i = 1; i < 5; i++) {
-
-		//	short is_button = 0;
-		//	short is_buttonw = FALSE;
-		//	printfDx("%d", is_button);
-
-		//	if (is_buttonw == TRUE) {
-		//		is_button = i;
-		//	}
-
-
-		//	if (up_tile == is_button || down_tile == is_button) {
-
-		//		stage->CreateStage();
-		//		answer_time = 0;
-		//	}
-		//	else {
-		//		player->SetMistake(true);
-
-		//		answer_time = 0;
-		//	}
-		//}
-
-
 	}
 
 

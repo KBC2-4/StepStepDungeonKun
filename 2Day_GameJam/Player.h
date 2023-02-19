@@ -5,6 +5,7 @@ class Player
 private:
 	float player_x; //プレイヤー座標
 	float player_y; //プレイヤー座標
+	bool player_move;
 	int hp; //使うかわからんけど
 	int button; //数字で管理します、
 	int num;
@@ -16,7 +17,7 @@ private:
 	bool b_button; //bボタンのフラグ
 	bool y_button; //yボタンのフラグ
 	bool x_button; //xボタンのフラグ
-	
+
 public:
 
 	Player(); //コンストラクタ
@@ -31,6 +32,8 @@ public:
 	int  GetButton(); // 1,Aボタン 2,Bボタン  3,Yボタン 4,Xボタン
 	void SetMistake(bool a); //フラグを設定する
 	void SetImagesNum(int a);
+	void SetPlayer_x(float a);
+	void SetPlayer_y(float a);
 
 };
 
