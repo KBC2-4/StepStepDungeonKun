@@ -51,7 +51,14 @@ AbstractScene* GameMain::Update()
 
 	short tile_count = 0;
 	for (int i = 0; i < 2; i++) {
-		if (up_tile == 0 || down_tile == 0) { tile_count++; }
+		if (up_tile > 0 && down_tile > 0)
+		{
+			tile_count = 2;
+		}
+		else
+		{
+			tile_count = 1;
+		}
 	}
 
 	if (player->Getnum() == tile_count)
@@ -119,18 +126,21 @@ void GameMain::Draw() const
 
 	stage->Draw();
 	player->Draw();
+	short up_tile = stage->GetNextTile().up;
+	short down_tile = stage->GetNextTile().down;
 
+	DrawFormatString(600, 300, GetColor(255, 255, 50), "%d", up_tile + down_tile);
 
 	//HUD
 
-	//開始時のカウントダウン	描画
-	if (start_time > 60) {
-		DrawFormatString2ToHandle(GetDrawCenterX("0", start_count_font), 200, 0x000000, 0xFFFFFF, start_count_font, "%d", start_time / 60);
-	}
+	////開始時のカウントダウン	描画
+	//if (start_time > 60) {
+	//	DrawFormatString2ToHandle(GetDrawCenterX("0", start_count_font), 200, 0x000000, 0xFFFFFF, start_count_font, "%d", start_time / 60);
+	//}
 
-	//1タイル当たりの制限時間	描画
-	if (answer_time > 60) { DrawFormatString2ToHandle(50, 80, 0x000000, 0xFFFFFF, answer_count_font, "%d", (answer_time / 60)); }
-	DrawFormatString2ToHandle(1050, 80, 0x000000, 0xFFFFFF, answer_count_font, "%2dm", distance);
+	////1タイル当たりの制限時間	描画
+	//if (answer_time > 60) { DrawFormatString2ToHandle(50, 80, 0x000000, 0xFFFFFF, answer_count_font, "%d", (answer_time / 60)); }
+	//DrawFormatString2ToHandle(1050, 80, 0x000000, 0xFFFFFF, answer_count_font, "%2dm", distance);
 
 	//ライフ		描画
 	int life = player->GetLife();

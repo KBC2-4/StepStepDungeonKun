@@ -9,7 +9,6 @@ Player::Player()
 	button = 0;
 	num = 0;
 	images_num = 0;
-	time = 0;
 	player_mistake = false;
 	button_flg = false;
 	a_button = false;
@@ -29,15 +28,16 @@ Player::~Player()
 //-----------------------
 void Player::Update()
 {
-	time++;
 	if (images_num > 3)
 	{
 		images_num = 0;
+		Reset();
 	}
+	//次のタイルの色[0:赤, 1:緑, 2:青, 3:黄]
 	//Aボタン押したとき
 	if (PAD_INPUT::GetNowKey() == XINPUT_BUTTON_A && PAD_INPUT::GetPadState() == PAD_STATE::ON && a_button == false)
 	{
-		button += 1;
+		button += 2;
 		a_button = true;
 		button_flg = true;
 	}
@@ -45,7 +45,7 @@ void Player::Update()
 	//Bボタン押したとき
 	if (PAD_INPUT::GetNowKey() == XINPUT_BUTTON_B && PAD_INPUT::GetPadState() == PAD_STATE::ON && b_button == false)
 	{
-		button += 0;
+		button += 1;
 		b_button = true;
 		button_flg = true;
 	}
@@ -53,7 +53,7 @@ void Player::Update()
 	//Yボタン押したとき
 	if (PAD_INPUT::GetNowKey() == XINPUT_BUTTON_Y && PAD_INPUT::GetPadState() == PAD_STATE::ON && y_button == false)
 	{
-		button += 3;
+		button += 4;
 		y_button = true;
 		button_flg = true;
 	}
@@ -61,7 +61,7 @@ void Player::Update()
 	//Xボタン押したとき
 	if (PAD_INPUT::GetNowKey() == XINPUT_BUTTON_X && PAD_INPUT::GetPadState() == PAD_STATE::ON && x_button == false)
 	{
-		button += 2;
+		button += 3;
 		x_button = true;
 		button_flg = true;
 	}
@@ -72,11 +72,10 @@ void Player::Update()
 		button_flg = false;
 	}
 
-	if (player_mistake == true || time % 600 == 0)
+	if (player_mistake == true)
 	{
 		hp--;
 		player_mistake = false;
-		time = 0;
 	}
 
 }
