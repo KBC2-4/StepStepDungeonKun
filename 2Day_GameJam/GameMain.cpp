@@ -1,5 +1,8 @@
 #include "GameMain.h"
 #include "DxLib.h"
+#include "Result.h"
+
+#define ANSWER_TIME		180
 
 GameMain::GameMain()
 {
@@ -11,10 +14,10 @@ GameMain::GameMain()
 
 	player = new Player();
 	stage = new Stage();
-	
+
 	start_time = 240;
 
-	answer_time = 180;
+	answer_time = ANSWER_TIME;
 }
 
 GameMain::~GameMain()
@@ -39,30 +42,95 @@ AbstractScene* GameMain::Update()
 		}
 
 		//開始した後の処理
-		player->Update();
-		stage->Update();
+	player->Update();
+	stage->Update();
+
+
+	short up_tile = stage->GetNextTile().up;
+	short down_tile = stage->GetNextTile().down;
+
+	short tile_count = 0;
+	for (int i = 0; i < 2; i++) {
+		if (up_tile == 0 || down_tile == 0) { tile_count++; }
 	}
 
-	return this;
+	if (player->Getnum() == tile_count)
+	{
+		if ((up_tile + down_tile) == player->GetButton())
+		{
+			player->Reset();
+			player->SetImagesNum(1);
+			stage->CreateStage();
 
+			answer_time = ANSWER_TIME;
+		}
+		else
+		{
+			player->SetMistake(true);
+			player->Reset();
+
+			answer_time = ANSWER_TIME;
+		}
+
+	}
+
+		/*	short is_a_button = player->GetButton(1);
+			short is_b_button = player->GetButton(2);
+			short is_y_button = player->GetButton(3);
+			short is_x_button = player->GetButton(4);*/
+
+		//for (int i = 1; i < 5; i++) {
+
+		//	short is_button = 0;
+		//	short is_buttonw = FALSE;
+		//	printfDx("%d", is_button);
+
+		//	if (is_buttonw == TRUE) {
+		//		is_button = i;
+		//	}
+
+
+		//	if (up_tile == is_button || down_tile == is_button) {
+
+		//		stage->CreateStage();
+		//		answer_time = 0;
+		//	}
+		//	else {
+		//		player->SetMistake(true);
+
+		//		answer_time = 0;
+		//	}
+		//}
+
+
+	}
+
+
+
+	//プレイヤーのライフがなくなった時
+	if (player->GetLife() <= 0) { return new Result(); }
+
+	return this;
 }
 
 void GameMain::Draw() const
 {
 	DrawGraph(0, 0, background_image, FALSE);
 
-	player->Draw();
 	stage->Draw();
+	player->Draw();
 
 
 	//HUD
 
-	////開始時のカウントダウン	描画
-	//if (start_time > 60) {
-	//	DrawFormatStringToHandle(GetDrawCenterX("0", start_count_font), 200, 0x000000, 0xFFFFFF, start_count_font, "%d", start_time / 60);
-	//}
+	//開始時のカウントダウン	描画
+	if (start_time > 60) {
+		DrawFormatString2ToHandle(GetDrawCenterX("0", start_count_font), 200, 0x000000, 0xFFFFFF, start_count_font, "%d", start_time / 60);
+	}
 
-	
+	//1タイル当たりの制限時間	描画
+	if (answer_time > 60) { DrawFormatString2ToHandle(50, 80, 0x000000, 0xFFFFFF, answer_count_font, "%d", (answer_time / 60)); }
+	DrawFormatString2ToHandle(1050, 80, 0x000000, 0xFFFFFF, answer_count_font, "%2dm", distance);
 
 	//ライフ		描画
 	int life = player->GetLife();
