@@ -6,6 +6,7 @@ private:
 	float player_x; //プレイヤー座標
 	float player_y; //プレイヤー座標
 	int hp; //使うかわからんけど
+	int player_images[4]; //プレイヤー画像
 	bool player_mistake; //プレイヤーがミスをしたらtrue
 	bool a_button; //aボタンのフラグ
 	bool b_button; //bボタンのフラグ
