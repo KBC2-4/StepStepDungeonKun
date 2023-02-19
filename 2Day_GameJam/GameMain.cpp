@@ -1,5 +1,8 @@
 #include "GameMain.h"
 #include "DxLib.h"
+#include "Result.h"
+
+#define ANSWER_TIME		180
 
 GameMain::GameMain()
 {
@@ -14,7 +17,7 @@ GameMain::GameMain()
 
 	start_time = 240;
 
-	answer_time = 180;
+	answer_time = ANSWER_TIME;
 }
 
 GameMain::~GameMain()
@@ -46,17 +49,27 @@ AbstractScene* GameMain::Update()
 	short up_tile = stage->GetNextTile().up;
 	short down_tile = stage->GetNextTile().down;
 
-	if (player->Getnum() == 2)
+	short tile_count = 0;
+	for (int i = 0; i < 2; i++) {
+		if (up_tile == 0 || down_tile == 0) { tile_count++; }
+	}
+
+	if (player->Getnum() == tile_count)
 	{
 		if ((up_tile + down_tile) == player->GetButton())
 		{
 			player->Reset();
 			player->SetImagesNum(1);
+			stage->CreateStage();
+
+			answer_time = ANSWER_TIME;
 		}
 		else
 		{
 			player->SetMistake(true);
 			player->Reset();
+
+			answer_time = ANSWER_TIME;
 		}
 
 	}
@@ -91,6 +104,11 @@ AbstractScene* GameMain::Update()
 
 
 	}
+
+
+
+	//プレイヤーのライフがなくなった時
+	if (player->GetLife() <= 0) { return new Result(); }
 
 	return this;
 }
