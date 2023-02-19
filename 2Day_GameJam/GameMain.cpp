@@ -38,12 +38,32 @@ AbstractScene* GameMain::Update()
 			answer_time--;
 		}
 
-		//ŠJŽn‚µ‚½Œã‚Ìˆ—
-		player->Update();
-		stage->Update();
 	}
+	player->Update();
 
-	return this;
+	if (player->Getnum() == 2)
+	{
+		/*if ((stage->Getstage(0, 1) + stage->Getstage(1, 1)) == player->GetButton())
+		{
+			stage->Update();
+			player->Reset();
+			player->SetImagesNum(1);
+		}
+		else
+		{
+			player->SetMistake(true);
+			player->Reset();
+		}*/
+
+	}
+	if (player->CheckHp() == false)
+	{
+		return this;
+	}
+	else
+	{
+		//return
+	}
 
 }
 
@@ -51,8 +71,8 @@ void GameMain::Draw() const
 {
 	DrawGraph(0, 0, background_image, FALSE);
 
-	player->Draw();
 	stage->Draw();
+	player->Draw();
 
 
 	//HUD
