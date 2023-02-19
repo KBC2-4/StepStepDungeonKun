@@ -2,6 +2,9 @@
 
 class AbstractScene
 {
+protected:
+	int background_music;
+
 public:
 	//コンストラクタ
 	AbstractScene();

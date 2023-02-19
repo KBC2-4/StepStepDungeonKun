@@ -11,7 +11,7 @@ Title::Title()
 {
 	background_image = LoadGraph("Resource/images/Title&Result/background_images2.png");
 	select_image = LoadGraph("Resource/images/Title&Result/select_images.png");
-
+	background_music = LoadSoundMem("Resource/Sounds/BGM/タイトル.mp3");
 	title_font = CreateFontToHandle("UD デジタル 教科書体 N-B", 90, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
 	text_font = CreateFontToHandle("UD デジタル 教科書体 N-B", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
 	
@@ -24,6 +24,10 @@ Title::Title()
 	decision_se = 0;
 
 	input_margin = 0;
+
+	MenuNo = TITLE_MENU::PLAY;
+
+	PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, TRUE);
 }
 
 //-----------------------------------
@@ -34,6 +38,8 @@ Title::~Title()
 	DeleteFontToHandle(title_font);
 	DeleteFontToHandle(text_font);
 	DeleteGraph(background_image);
+	StopSoundMem(background_music);
+	DeleteSoundMem(background_music);
 }
 
 //-----------------------------------

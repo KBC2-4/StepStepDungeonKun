@@ -6,17 +6,21 @@
 Result::Result() {
 	background_image = LoadGraph("Resource/images/Title&Result/background_images2.png");
 	select_image = LoadGraph("Resource/images/Title&Result/select_images.png");
-
+	background_music = LoadSoundMem("Resource/Sounds/BGM/リザルト.mp3");
 	result_font = CreateFontToHandle("UD デジタル 教科書体 N-B", 120, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
 	text_font = CreateFontToHandle("UD デジタル 教科書体 N-B", 60, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 8);
 
 	flash_number = 0;
 	select = 0;
 	input_margin = 0;
+
+	PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, TRUE);
 }
 
 Result::~Result() {
 	DeleteFontToHandle(result_font);
+	StopSoundMem(background_music);
+	DeleteSoundMem(background_music);
 }
 
 AbstractScene* Result::Update() {

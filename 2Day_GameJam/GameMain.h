@@ -11,6 +11,8 @@ public:
 	~GameMain();
 	AbstractScene* Update() override;
 	void Draw() const override;
+
+
 private:
 
 	//スタート時のカウントダウン用フォントハンドル
@@ -28,10 +30,22 @@ private:
 	//進んだ距離(1歩1m)
 	int distance;
 
+	enum class Answer {
+		unanswered, //未回答
+		wrong,		//不正解
+		correct,	//正解
+	};
+
+	Answer answer;
+
 	//リソース
 	int background_image;
 
-	int bgm;
+	//サウンドハンドル
+	int correct_se;
+	int wrong_se;
+	int background_music;
+	int tile_se[4];
 	
 	//各クラスオブジェクト
 	Player* player;
