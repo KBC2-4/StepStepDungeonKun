@@ -6,9 +6,9 @@
 
 GameMain::GameMain()
 {
-	wrong_se = LoadSoundMem("Resource/Sounds/wrong.mp3");
-	correct_se = LoadSoundMem("Resource/Sounds/correct.mp3");
-	background_music = LoadSoundMem("Resource/Sounds/bgm.mp3");
+	wrong_se = LoadSoundMem("Resource/Sounds/SE/wrong.mp3");
+	correct_se = LoadSoundMem("Resource/Sounds/SE/correct.mp3");
+	background_music = LoadSoundMem("Resource/Sounds/SE/bgm.mp3");
 
 	background_image = LoadGraph("Resource/Images/Stage/background.jpg");
 
