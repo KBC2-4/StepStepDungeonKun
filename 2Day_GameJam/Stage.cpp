@@ -56,7 +56,6 @@ void Stage::Draw()
 			tile_color = tile_image[stage[i][j]];
 			
 
-
 			DrawModiGraph(left_x, up_y, right_x, up_y, right_x - BOX_ANGLE, down_y, left_x - BOX_ANGLE, down_y, tile_color, TRUE);
 		}
 	}
@@ -81,12 +80,13 @@ void Stage::InitStage()
 		}
 
 		//プレイヤーの待機タイルを作成
-		stage[i][0] = 0;
-		stage[i][0] = 0;
+		stage[i][0] = GetRand(TILE_NUM);
+		stage[i][0] = GetRand(TILE_NUM);
+		
 	}
 
 	// 上下のタイルが同じにならないように調整する
-	for (int j = 1; j < 7; j++)
+	for (int j = 0; j < 7; j++)
 	{
 		while (stage[0][j] == stage[1][j])
 		{

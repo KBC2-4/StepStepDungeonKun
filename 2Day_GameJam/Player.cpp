@@ -5,8 +5,8 @@
 
 Player::Player()
 {
-	player_x = 0;
-	player_y = 0;
+	player_x = 100;
+	player_y = 500;
 	hp = 3;
 	button = 0;
 	num = 0;
@@ -17,7 +17,7 @@ Player::Player()
 	b_button = false;
 	y_button = false;
 	x_button = false;
-	LoadDivGraph("Resource/Images/Player/human.png", 4, 4, 1, 30, 60, player_images);
+	LoadDivGraph("Resource/Images/Player/PlayerKai.png", 4, 4, 1, 76, 100, player_images);
 }
 
 Player::~Player()
@@ -87,11 +87,7 @@ void Player::Update()
 //-----------------------
 void Player::Draw()const
 {
-	DrawFormatString(200, 200, GetColor(255, 0, 0), "%d", button);
-	DrawFormatString(500, 500, GetColor(255, 255, 255), "%d", num);
-	DrawFormatString(700, 300, GetColor(255, 255, 0), "%d",hp );
-
-	DrawRotaGraph(100 , 400, 1.0, M_PI / 180 * 0, player_images[images_num], TRUE);
+	DrawRotaGraph(player_x , player_y, 2.0, M_PI / 180 * 0, player_images[images_num], TRUE);
 
 }
 void Player::Reset()
@@ -142,4 +138,14 @@ int Player::Getnum()
 void Player::SetImagesNum(int a)
 {
 	images_num += a;
+}
+
+void Player::SetPlayer_x(float a)
+{
+	player_x = a;
+}
+
+void Player::SetPlayer_y(float a)
+{
+	player_y = a;
 }

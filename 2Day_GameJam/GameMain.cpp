@@ -160,7 +160,11 @@ AbstractScene* GameMain::Update()
 
 	}
 
-
+	/*if (answer_time == 0)
+	{
+		player->SetMistake(true);
+		answer_time = 3;
+	}*/
 
 	//プレイヤーのライフがなくなった時
 	if (player->GetLife() <= 0) { return new Result(distance); }
@@ -176,8 +180,6 @@ void GameMain::Draw() const
 	player->Draw();
 	short up_tile = stage->GetNextTile().up;
 	short down_tile = stage->GetNextTile().down;
-
-	DrawFormatString(600, 300, GetColor(255, 255, 50), "%d", up_tile + down_tile);
 
 	//HUD
 
