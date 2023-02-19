@@ -80,8 +80,9 @@ void Stage::InitStage()
 		}
 
 		//プレイヤーの待機タイルを作成
-		stage[i][0] = 0;
-		stage[i][0] = 0;
+		stage[i][0] = GetRand(TILE_NUM);
+		stage[i][0] = GetRand(TILE_NUM);
+		
 	}
 
 	// 上下のタイルが同じにならないように調整する
