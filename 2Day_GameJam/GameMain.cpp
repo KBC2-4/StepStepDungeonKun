@@ -11,7 +11,7 @@ GameMain::GameMain()
 
 	player = new Player();
 	stage = new Stage();
-	
+
 	start_time = 240;
 
 	answer_time = 180;
@@ -41,6 +41,41 @@ AbstractScene* GameMain::Update()
 		//ŠJŽn‚µ‚½Œã‚Ìˆ—
 		player->Update();
 		stage->Update();
+
+
+		short up_tile = stage->GetNextTile().up;
+		short down_tile = stage->GetNextTile().down;
+
+		short is_a_button = player->GetButton(1);
+		short is_b_button = player->GetButton(2);
+		short is_y_button = player->GetButton(3);
+		short is_x_button = player->GetButton(4);
+
+		for (int i = 1; i < 5; i++) {
+
+			short is_button = 0;
+			short is_buttonw = FALSE;
+			printfDx("%d", is_button);
+
+			if(is_buttonw == TRUE) {
+				is_button = i;
+			}
+
+
+			if (up_tile == is_button || down_tile == is_button) {
+
+				stage->CreateStage();
+				answer_time = 0;
+			}
+			else {
+				player->SetMistake(true);
+
+				answer_time = 0;
+			}
+		}
+
+
+
 	}
 
 	return this;

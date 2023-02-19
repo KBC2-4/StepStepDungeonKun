@@ -21,4 +21,26 @@ public:
 	void InitStage();
 	//一番右端のタイルを作成
 	void CreateStage();
+
+	struct NEXT_TILE
+	{
+		short up;
+		short down;
+	};
+
+	NEXT_TILE next_tiles;
+
+	//次のタイルのGetter
+	NEXT_TILE GetNextTile() {
+		if (stage[0][0] == 0 && stage[1][0] == 0) {
+			next_tiles.up = stage[0][1];
+			next_tiles.down = stage[1][1];
+		}
+		else if (stage[0][0] != 0 || stage[1][0] != 0) {
+			next_tiles.up = stage[0][0];
+			next_tiles.down = stage[1][0];
+		}
+
+		return next_tiles;
+	}
 };
