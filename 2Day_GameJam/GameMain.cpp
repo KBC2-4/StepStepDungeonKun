@@ -104,7 +104,11 @@ AbstractScene* GameMain::Update()
 	}
 	}
 
-
+	/*if (answer_time == 0)
+	{
+		player->SetMistake(true);
+		answer_time = 3;
+	}*/
 
 	//プレイヤーのライフがなくなった時
 	if (player->GetLife() <= 0) { return new Result(); }
