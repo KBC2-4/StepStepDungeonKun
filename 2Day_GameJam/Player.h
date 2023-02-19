@@ -20,6 +20,7 @@ public:
 	void Update(); //描画以外の処理
 	void Draw()const; //描画のみ
 	bool CheckHp(); //HPをチェック処理
+	int GetLife() { return hp; }	 //ライフのGetter
 	bool GetButton(int botton); // 1,Aボタン 2,Bボタン  3,Yボタン 4,Xボタン
 	void SetMistake(bool a); //フラグを設定する
 };

@@ -6,14 +6,15 @@ GameMain::GameMain()
 	bgm = 0;
 	background_image = LoadGraph("Resource/Images/Stage/background.jpg");
 
-	count_font = CreateFontToHandle("メイリオ", 300, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+	answer_count_font = CreateFontToHandle("メイリオ", 100, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+	start_count_font = CreateFontToHandle("メイリオ", 300, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
 
 	player = new Player();
 	stage = new Stage();
 	
 	start_time = 240;
 
-	answer = 0;
+	answer_time = 180;
 }
 
 GameMain::~GameMain()
@@ -21,7 +22,8 @@ GameMain::~GameMain()
 	delete player;
 	delete stage;
 
-	DeleteFontToHandle(count_font);
+	DeleteFontToHandle(start_count_font);
+	DeleteFontToHandle(answer_count_font);
 }
 
 AbstractScene* GameMain::Update()
@@ -30,6 +32,11 @@ AbstractScene* GameMain::Update()
 		start_time--;
 	}
 	else if (start_time <= 60) {
+
+		//1タイル当たりの制限時間を減算
+		if (answer_time > 0) {
+			answer_time--;
+		}
 
 		//開始した後の処理
 		player->Update();
@@ -47,8 +54,22 @@ void GameMain::Draw() const
 	player->Draw();
 	stage->Draw();
 
-	//if (start_time > 60) {
-	//	DrawFormatStringToHandle(GetDrawCenterX("0", count_font), 200, 0x000000, 0xFFFFFF, count_font, "%d", start_time / 60);
-	//}
+
+	//HUD
+
+	//開始時のカウントダウン	描画
+	if (start_time > 60) {
+		DrawFormatString2ToHandle(GetDrawCenterX("0", start_count_font), 200, 0x000000, 0xFFFFFF, start_count_font, "%d", start_time / 60);
+	}
+
+	//1タイル当たりの制限時間	描画
+	if (answer_time > 60) { DrawFormatString2ToHandle(50, 80, 0x000000, 0xFFFFFF, answer_count_font, "%d", (answer_time / 60)); }
+	DrawFormatString2ToHandle(1050, 80, 0x000000, 0xFFFFFF, answer_count_font, "%2dm", distance);
+
+	//ライフ		描画
+	int life = player->GetLife();
+	for (int i = 0; i < life; i++) {
+		DrawCircle(50 + i * 50, 30, 10, 0xFFFFF, TRUE);
+	}
 }
 

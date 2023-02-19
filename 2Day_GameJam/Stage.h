@@ -17,5 +17,8 @@ public:
 	~Stage();
 	void Update();
 	void Draw();
-
+	//ステージを初期化
+	void InitStage();
+	//一番右端のタイルを作成
+	void CreateStage();
 };
