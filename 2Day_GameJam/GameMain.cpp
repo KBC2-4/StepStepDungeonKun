@@ -8,7 +8,11 @@ GameMain::GameMain()
 {
 	wrong_se = LoadSoundMem("Resource/Sounds/SE/wrong.mp3");
 	correct_se = LoadSoundMem("Resource/Sounds/SE/correct.mp3");
-	background_music = LoadSoundMem("Resource/Sounds/SE/bgm.mp3");
+
+	char buf[35];
+	short bgm_rand = GetRand(1) + 1;
+	sprintfDx(buf, "Resource/Sounds/BGM/GameMain%d.mp3", bgm_rand);
+	background_music = LoadSoundMem(buf);
 
 	background_image = LoadGraph("Resource/Images/Stage/background.jpg");
 
