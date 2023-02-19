@@ -103,17 +103,17 @@ bool Player::GetButton(int botton)
 {
 	switch (botton)
 	{
-	case 1: //Aボタン
-		return a_button;
-		break;
-	case 2: //Bボタン
+	case 1: //Bボタン
 		return b_button;
 		break;
-	case 3: //Yボタン
-		return y_button;
+	case 2: //Aボタン
+		return a_button;
 		break;
-	case 4: //Xボタン
+	case 3: //Xボタン
 		return x_button;
+		break;
+	case 4: //yボタン
+		return y_button;
 		break;
 	default:
 		break;
