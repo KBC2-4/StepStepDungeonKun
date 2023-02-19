@@ -13,6 +13,8 @@ public:
 	void Draw() const override;
 private:
 
+	int count_font;
+
 	//ŠJŽn‚Ü‚Å‚ÌŽžŠÔ
 	int start_time;
 

@@ -2,8 +2,7 @@
 class Stage
 {
 private:
-	int tile_image[4];
-	int trans_tile_image;
+	int tile_image[5];
 
 	short stage[2][7];
 

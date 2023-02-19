@@ -3,11 +3,12 @@
 #include "PadInput.h"
 
 #define	BOX_ANGLE		20
+#define TILE_NUM		4
 
 Stage::Stage()
 {
-	LoadDivGraph("Resource/Images/Stage/color_tile.png", 4, 2, 2, 25, 25, tile_image);
-	trans_tile_image = LoadGraph("Resource/Images/Stage/trans_tile.png");
+	LoadDivGraph("Resource/Images/Stage/color_tile.png", 4, 2, 2, 25, 25, tile_image + 1);
+	tile_image[0] = LoadGraph("Resource/Images/Stage/trans_tile.png");
 	**stage = 0;
 	next_color = 0;
 
@@ -16,31 +17,37 @@ Stage::Stage()
 	// ステージをランダムに生成する
 	for (int i = 0; i < 2; i++)
 	{
-		for (int j = 0; j < 7; j++)
+		for (int j = 1; j < 7; j++)
 		{
 			next_tile = GetRand(1);
-			stage[next_tile][j] = GetRand(3);
+			stage[next_tile][j] = GetRand(TILE_NUM);
+
+			int reverse = i == 0 ? 0 : 1;
+			if (stage[i][j] != 0) {
+				stage[reverse][j] = 0;
+			}
 		}
+
+		//プレイヤーの待機タイルを作成
+		stage[i][0] = 0;
+		stage[i][0] = 0;
 	}
 
 	// 上下のタイルが同じにならないように調整する
-	for (int j = 0; j < 7; j++)
+	for (int j = 1; j < 7; j++)
 	{
 		while (stage[0][j] == stage[1][j])
 		{
-			stage[1][j] = GetRand(3);
+			stage[1][j] = GetRand(TILE_NUM);
 		}
 	}
 }
 
 Stage::~Stage()
 {
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 5; i++) {
 		DeleteGraph(tile_image[i]);
 	}
-
-
-	DeleteGraph(trans_tile_image);
 }
 
 void Stage::Update()
@@ -65,16 +72,22 @@ void Stage::Update()
 			stage[i][j - 1] = w;
 		}
 
-		for (int i = 0; i < 1; i++) {
+		//新しい右端のタイルを作成
+		for (int i = 0; i < 2; i++) {
 			next_tile = GetRand(1);
-			stage[next_tile][6] = GetRand(3);
+			stage[next_tile][6] = GetRand(TILE_NUM);
+
+			int reverse = i == 0 ? 0 : 1;
+			if (stage[i][6] != 0) {
+				stage[reverse][6] = 0;
+			}
 		}
 
 
 		// 上下のタイルが同じにならないように調整する
 		while (stage[0][6] == stage[1][6])
 		{
-			stage[1][6] = GetRand(3);
+			stage[1][6] = GetRand(TILE_NUM);
 		}
 
 
@@ -101,14 +114,8 @@ void Stage::Draw()
 			//描画する色の画像
 			int tile_color;
 
-			if (stage[i][j] != 0) {
-				//[0:空, 1:奥, 2:手前, 3:両方]
-				tile_color = tile_image[stage[i][j]];
-			}
-			else {
-				//透明
-				tile_color = trans_tile_image;
-			}
+			tile_color = tile_image[stage[i][j]];
+			
 
 
 			DrawModiGraph(left_x, up_y, right_x, up_y, right_x - BOX_ANGLE, down_y, left_x - BOX_ANGLE, down_y, tile_color, TRUE);
