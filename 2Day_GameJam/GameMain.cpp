@@ -38,7 +38,7 @@ GameMain::GameMain()
 
 	PlaySoundMem(background_music, DX_PLAYTYPE_LOOP, TRUE);
 
-	ChangeVolumeSoundMem(180, background_music);
+	ChangeVolumeSoundMem(120, background_music);
 }
 
 GameMain::~GameMain()
@@ -116,6 +116,7 @@ AbstractScene* GameMain::Update()
 
 				answer = Answer::wrong;
 				PlaySoundMem(wrong_se, DX_PLAYTYPE_BACK, TRUE);
+				while (CheckSoundMem(wrong_se)) {}
 			}
 
 		}
