@@ -121,8 +121,6 @@ void GameMain::Draw() const
 	short up_tile = stage->GetNextTile().up;
 	short down_tile = stage->GetNextTile().down;
 
-	DrawFormatString(600, 300, GetColor(255, 255, 50), "%d", up_tile + down_tile);
-
 	//HUD
 
 	////開始時のカウントダウン	描画

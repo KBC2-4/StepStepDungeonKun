@@ -87,10 +87,6 @@ void Player::Update()
 //-----------------------
 void Player::Draw()const
 {
-	DrawFormatString(200, 200, GetColor(255, 0, 0), "%d", button);
-	DrawFormatString(500, 500, GetColor(255, 255, 255), "%d", num);
-	DrawFormatString(700, 300, GetColor(255, 255, 0), "%d",hp );
-
 	DrawRotaGraph(player_x , player_y, 2.0, M_PI / 180 * 0, player_images[images_num], TRUE);
 
 }
